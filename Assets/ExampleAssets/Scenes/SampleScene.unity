@@ -609,9 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeablePrefabs:
-  - {fileID: 5809960481293502358, guid: 56c4aa044858b3940a451d49df53a51e, type: 3}
-  - {fileID: 8090757194733092600, guid: b3fb81233a32c7d43b1d75c11d97b1b0, type: 3}
-  - {fileID: 989645556441616305, guid: 7fded16c4f054824faec960e84ebf5d5, type: 3}
+  - {fileID: 3965798470071506583, guid: 5d7fb2647575c6c4b8da766c88e6b3c9, type: 3}
   - {fileID: 5679603435130585574, guid: 33fbc53bac28a6f459e3c77b7752921b, type: 3}
   - {fileID: 6211188234406019654, guid: e504ce250e55f854da0f5148c907cd60, type: 3}
   prefabParent: {fileID: 2065566283}
