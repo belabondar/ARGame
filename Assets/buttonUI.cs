@@ -1,64 +1,110 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class buttonUI : MonoBehaviour
 {
 
-    public Animator fighterAnimController;
-    public Button firstB;
-    public Button secondB;
-    public GameObject fighterObj;
+    private GameObject _fighter, _vampire, _mage;
+    public Button punchButton;
+    public Button magicButton;
 
-    // Set these parameters in the Unity Inspector
-    public string firstAnimationParam = "magic";
-    public string secondAnimationParam = "punch";
+    public GameObject prefabParent;
 
-     void Start() {
-        Debug.Log("ASDASd");
-        firstB.onClick.AddListener(OnButtonClick);
-        secondB.onClick.AddListener(OnSecondButtonClick);
+    private Transform[] _parentTransforms;
+    private bool _showUi;
+    private List<GameObject> _prefabs = new List<GameObject>();
 
-        GameObject wwwtObject = GameObject.Find("fighter");
 
-        
-        fighterAnimController = wwwtObject.GetComponent<Animator>();
-         
+    void Start() {
+        punchButton.onClick.AddListener(OnPunchBtnClick);
+        magicButton.onClick.AddListener(OnMagicBtnClick);
+
+        _parentTransforms = prefabParent.GetComponentsInChildren<Transform>(true);
+        foreach(Transform t in prefabParent.transform){
+            _prefabs.Add(t.gameObject);
+        }
+
+        foreach (var prefab in _prefabs)
+        {
+            Debug.Log(prefab);
+        }
     }
 
-    public void OnButtonClick() {
-        PlayFirstAnimation();
+     private void Update()
+     {
+         SetShowUi();
+         punchButton.gameObject.SetActive(_showUi);
+         magicButton.gameObject.SetActive(_showUi);
+     }
+
+     private void SetShowUi()
+     {
+         //Show UI only if a prefab is active
+         foreach(var g in _prefabs){
+             if (g.activeSelf)
+             {
+                 _showUi = true;
+                 return;
+             }
+         }
+
+         _showUi = false;
+     }
+
+     private void OnPunchBtnClick() {
+        PlayPunchAnimation();
     }
 
-    public void OnSecondButtonClick() {
-        PlaySecondAnimation();
+    private void OnMagicBtnClick() {
+        PlayMagicAnimation();
     }
 
     // Call this method from the first button's OnClick event
-    public void PlayFirstAnimation()
+    private void PlayPunchAnimation()
     {
-        Debug.Log("Called");
-        // Ensure the animator exists
-        if (fighterAnimController != null)
+        var activeAnimators = GetActiveAnimators();
+        foreach (var animator in activeAnimators)
         {
-            Debug.Log("exist");
-            // Set the first animation boolean parameter to true
-            fighterAnimController.SetTrigger("magicc");
+                Debug.Log("exist");
+                if (animator != null)
+                {
+                    animator.SetTrigger("TrPunch");
+                }
+                
         }
     }
 
     // Call this method from the second button's OnClick event
-    public void PlaySecondAnimation()
+    private void PlayMagicAnimation()
     {
-        // Ensure the animator exists
-        if (fighterAnimController != null)
+        var activeAnimators = GetActiveAnimators();
+        foreach (var animator in activeAnimators)
         {
-            // Set the first animation boolean parameter to false
-            fighterAnimController.SetTrigger("punnch");
+            Debug.Log("exist");
+            if (animator != null)
+            {
+                animator.SetTrigger("TrMagic");
+            }
         }
     }
 
-   
+    private List<Animator> GetActiveAnimators()
+    {
+        List<Animator> animators = new List<Animator>();
+
+        foreach (var prefab in _prefabs)
+        {
+            if (prefab.activeSelf)
+            {
+                animators.Add(prefab.GetComponent<Animator>());
+            }
+        }
+
+        return animators;
+    }
 }

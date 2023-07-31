@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: magicc
+    m_ConditionEvent: TrMagic
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1774131776179731506}
@@ -42,7 +42,7 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5044199576799440706}
-    m_Position: {x: 103.845795, y: 256.07962, z: 0}
+    m_Position: {x: 100, y: 260, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -113,7 +113,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: punnch
+    m_ConditionEvent: TrPunch
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5190597997711203612}
@@ -166,18 +166,18 @@ AnimatorController:
   m_Name: fighterAnimController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: magicc
+  - m_Name: TrMagic
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: punnch
+    m_Controller: {fileID: 0}
+  - m_Name: TrPunch
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

@@ -13,6 +13,7 @@ private ARTrackedImageManager aRTrackedImageManager;
 private GameObject[] placeablePrefabs;
 private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
 
+public GameObject prefabParent;
 
 private void Awake()
 {
@@ -24,7 +25,9 @@ private void Awake()
 
         GameObject newPrefab = Instantiate(prefab, position, Quaternion.identity);
         newPrefab.name = prefab.name;
+        newPrefab.SetActive(false);
         spawnedPrefabs.Add(prefab.name, newPrefab);
+        newPrefab.transform.parent = prefabParent.transform;
     }
 }
 
@@ -40,16 +43,16 @@ public void OnDisable()
 
 public void OnImageChanged(ARTrackedImagesChangedEventArgs args)
 {
-
-foreach(ARTrackedImage trackedImage in args.added) {
-    UpdateImage(trackedImage);
-}
-foreach(ARTrackedImage trackedImage in args.updated) {
-    UpdateImage(trackedImage);
-}
-foreach(ARTrackedImage trackedImage in args.removed) {
-    spawnedPrefabs[trackedImage.name].SetActive(false);
-}
+    foreach(ARTrackedImage trackedImage in args.added) {
+        UpdateImage(trackedImage);
+        spawnedPrefabs[trackedImage.name].SetActive(true);
+    }
+    foreach(ARTrackedImage trackedImage in args.updated) {
+        UpdateImage(trackedImage);
+    }
+    foreach(ARTrackedImage trackedImage in args.removed) {
+        spawnedPrefabs[trackedImage.name].SetActive(false);
+    }
 }
 
 private void UpdateImage(ARTrackedImage trackedImage) {
@@ -59,9 +62,7 @@ private void UpdateImage(ARTrackedImage trackedImage) {
     Quaternion targetRotation = Quaternion.Euler(-90f, 0f, 0f);
 
     foreach(GameObject go in spawnedPrefabs.Values) {
-        if(go.name != name) {
-            go.SetActive(false);
-        }else {
+        if(go.name == name) {
             go.transform.position = position;
             go.transform.rotation = targetRotation;
             go.SetActive(true);
