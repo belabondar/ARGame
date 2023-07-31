@@ -59,7 +59,7 @@ private void UpdateImage(ARTrackedImage trackedImage) {
 
     string name = trackedImage.referenceImage.name;
     Vector3 position = trackedImage.transform.position;
-    Quaternion targetRotation = Quaternion.Euler(-90f, 0f, 0f);
+    Quaternion targetRotation = Quaternion.Euler(-0f, 180f, 0f);
 
     foreach(GameObject go in spawnedPrefabs.Values) {
         if(go.name == name) {
